@@ -1,0 +1,413 @@
+<html><head><base href="https://fcfa-tracker.sn" />
+<title>Xaalis Tracker - Sa xaalis ci sa loxo</title>
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;600;700&display=swap" rel="stylesheet">
+<style>
+  body, html {
+    margin: 0;
+    padding: 0;
+    font-family: 'Poppins', sans-serif;
+    background-color: #00853F;
+    color: #FFFFFF;
+  }
+  .app-container {
+    max-width: 414px;
+    margin: 0 auto;
+    background-color: #00853F;
+    min-height: 100vh;
+    box-shadow: 0 0 10px rgba(0,0,0,0.1);
+  }
+  .header {
+    background: linear-gradient(135deg, #FFCD00, #FF0000);
+    color: white;
+    padding: 20px;
+    text-align: center;
+    border-bottom-left-radius: 30px;
+    border-bottom-right-radius: 30px;
+  }
+  .logo {
+    font-size: 28px;
+    font-weight: 700;
+    text-transform: uppercase;
+    letter-spacing: 2px;
+  }
+  .balance {
+    font-size: 40px;
+    margin-top: 10px;
+    font-weight: 600;
+  }
+  .menu, .auth-buttons {
+    display: flex;
+    justify-content: space-around;
+    background-color: #006B32;
+    padding: 15px 0;
+    border-radius: 20px;
+    margin: 20px;
+  }
+  .menu-item, .auth-button {
+    text-align: center;
+    cursor: pointer;
+    transition: transform 0.3s ease;
+  }
+  .menu-item:hover, .auth-button:hover {
+    transform: scale(1.1);
+  }
+  .menu-icon, .auth-icon {
+    font-size: 24px;
+    margin-bottom: 5px;
+    background: linear-gradient(135deg, #FFCD00, #FF0000);
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+  }
+  .transactions {
+    padding: 20px;
+  }
+  .transaction {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 15px;
+    border-bottom: 1px solid #006B32;
+    transition: background-color 0.3s ease;
+  }
+  .transaction:hover {
+    background-color: #006B32;
+    border-radius: 10px;
+  }
+  .transaction-icon {
+    width: 40px;
+    height: 40px;
+    background: linear-gradient(135deg, #FFCD00, #FF0000);
+    border-radius: 50%;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    margin-right: 15px;
+  }
+  .transaction-details {
+    flex-grow: 1;
+  }
+  .transaction-amount {
+    font-weight: bold;
+  }
+  .footer {
+    position: fixed;
+    bottom: 0;
+    width: 100%;
+    max-width: 414px;
+    background-color: #006B32;
+    display: flex;
+    justify-content: space-around;
+    padding: 10px 0;
+    border-top-left-radius: 20px;
+    border-top-right-radius: 20px;
+  }
+  .footer-item {
+    text-align: center;
+    font-size: 12px;
+    cursor: pointer;
+    transition: transform 0.3s ease;
+  }
+  .footer-item:hover {
+    transform: translateY(-5px);
+  }
+  .footer-icon {
+    font-size: 24px;
+    margin-bottom: 5px;
+    background: linear-gradient(135deg, #FFCD00, #FF0000);
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+  }
+  .modal {
+    display: none;
+    position: fixed;
+    z-index: 1;
+    left: 0;
+    top: 0;
+    width: 100%;
+    height: 100%;
+    overflow: auto;
+    background-color: rgba(0,0,0,0.4);
+    backdrop-filter: blur(5px);
+  }
+  .modal-content {
+    background-color: #006B32;
+    margin: 15% auto;
+    padding: 20px;
+    border-radius: 20px;
+    width: 80%;
+    max-width: 400px;
+    box-shadow: 0 0 20px rgba(255,255,255,0.1);
+  }
+  .close {
+    color: #aaa;
+    float: right;
+    font-size: 28px;
+    font-weight: bold;
+    cursor: pointer;
+  }
+  .close:hover,
+  .close:focus {
+    color: #FFCD00;
+    text-decoration: none;
+    cursor: pointer;
+  }
+  .form-group {
+    margin-bottom: 20px;
+  }
+  .form-group label {
+    display: block;
+    margin-bottom: 5px;
+    color: #FFCD00;
+  }
+  .form-group input {
+    width: 100%;
+    padding: 10px;
+    box-sizing: border-box;
+    background-color: #00853F;
+    border: 1px solid #FFCD00;
+    border-radius: 10px;
+    color: #FFFFFF;
+  }
+  .btn {
+    background: linear-gradient(135deg, #FFCD00, #FF0000);
+    color: white;
+    padding: 12px 20px;
+    border: none;
+    cursor: pointer;
+    width: 100%;
+    border-radius: 10px;
+    font-weight: 600;
+    transition: transform 0.3s ease;
+  }
+  .btn:hover {
+    transform: scale(1.05);
+  }
+  .hidden {
+    display: none;
+  }
+  h3 {
+    color: #FFCD00;
+    font-size: 20px;
+    margin-bottom: 15px;
+  }
+  .auth-container {
+    padding: 20px;
+    text-align: center;
+  }
+  .auth-option {
+    margin-bottom: 15px;
+  }
+  .auth-button {
+    background-color: #FFCD00;
+    color: #00853F;
+    padding: 10px 20px;
+    border-radius: 10px;
+    font-weight: 600;
+    cursor: pointer;
+    transition: background-color 0.3s ease;
+  }
+  .auth-button:hover {
+    background-color: #FF0000;
+    color: #FFFFFF;
+  }
+</style>
+</head>
+<body>
+  <div class="app-container">
+    <div class="header">
+      <div class="logo">Xaalis Tracker</div>
+      <div id="userInfo" class="hidden">
+        <div class="balance" id="balance">150 000 FCFA</div>
+      </div>
+    </div>
+    
+    <div id="authContainer" class="auth-container">
+      <h2>Dalal ak jamm ci Xaalis Tracker</h2>
+      <div class="auth-option">
+        <button class="auth-button" onclick="showLoginModal()">Dugg</button>
+      </div>
+      <div class="auth-option">
+        <button class="auth-button" onclick="showSignupModal()">Bindu</button>
+      </div>
+    </div>
+
+    <div id="mainContent" class="hidden">
+      <div class="menu">
+        <div class="menu-item" onclick="openModal('deposit')">
+          <div class="menu-icon">🐘</div>
+          <div>Yeb</div>
+        </div>
+        <div class="menu-item" onclick="openModal('withdraw')">
+          <div class="menu-icon">🦁</div>
+          <div>Genne</div>
+        </div>
+        <div class="menu-item" onclick="openModal('transfer')">
+          <div class="menu-icon">🥜</div>
+          <div>Yonnee</div>
+        </div>
+        <div class="menu-item" onclick="showReports()">
+          <div class="menu-icon">🌴</div>
+          <div>Xalaat</div>
+        </div>
+      </div>
+      
+      <div id="transactionsContainer" class="transactions">
+        <h3>Jëf yi mujj</h3>
+        <div id="transactionsList"></div>
+      </div>
+      
+      <div id="reportsContainer" class="transactions hidden">
+        <h3>Xalaat yi ci xaalis</h3>
+        <div id="reportsContent">
+          <p>Li nga jënd weer wii: 115 000 FCFA</p>
+          <p>Li nga am weer wii: 250 000 FCFA</p>
+          <p>Li nga denc: 135 000 FCFA</p>
+        </div>
+      </div>
+      
+      <div class="footer">
+        <div class="footer-item" onclick="showTransactions()">
+          <div class="footer-icon">🏠</div>
+          <div>Kër</div>
+        </div>
+        <div class="footer-item" onclick="showBudget()">
+          <div class="footer-icon">🐟</div>
+          <div>Waajtaay</div>
+        </div>
+        <div class="footer-item" onclick="openModal('add')">
+          <div class="footer-icon">🌟</div>
+          <div>Yokk</div>
+        </div>
+        <div class="footer-item" onclick="showReports()">
+          <div class="footer-icon">📊</div>
+          <div>Xalaat</div>
+        </div>
+        <div class="footer-item" onclick="logout()">
+          <div class="footer-icon">👤</div>
+          <div>Génn</div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- Modal pour les différentes actions -->
+  <div id="modal" class="modal">
+    <div class="modal-content">
+      <span class="close" onclick="closeModal()">&times;</span>
+      <h2 id="modalTitle"></h2>
+      <form id="transactionForm">
+        <div class="form-group">
+          <label for="amount">Limu Xaalis (FCFA)</label>
+          <input type="number" id="amount" name="amount" required>
+        </div>
+        <div class="form-group" id="recipientGroup">
+          <label for="recipient">Kuy jot</label>
+          <input type="text" id="recipient" name="recipient">
+        </div>
+        <div class="form-group" id="categoryGroup">
+          <label for="category">Xeetu jëf</label>
+          <input type="text" id="category" name="category">
+        </div>
+        <button type="submit" class="btn">Wooyal</button>
+      </form>
+    </div>
+  </div>
+
+  <!-- Modal pour la connexion -->
+  <div id="loginModal" class="modal">
+    <div class="modal-content">
+      <span class="close" onclick="closeModal()">&times;</span>
+      <h2>Dugg</h2>
+      <form id="loginForm">
+        <div class="form-group">
+          <label for="loginPhone">Sa numéro téléphone</label>
+          <input type="tel" id="loginPhone" name="phone" required>
+        </div>
+        <div class="form-group">
+          <label for="loginPassword">Sa baatu jumtukaay</label>
+          <input type="password" id="loginPassword" name="password" required>
+        </div>
+        <button type="submit" class="btn">Dugg</button>
+      </form>
+      <div class="auth-buttons">
+        <div class="auth-button" onclick="loginWithGoogle()">
+          <div class="auth-icon">G</div>
+          <div>Google</div>
+        </div>
+        <div class="auth-button" onclick="loginWithApple()">
+          <div class="auth-icon">🍎</div>
+          <div>Apple</div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- Modal pour l'inscription -->
+  <div id="signupModal" class="modal">
+    <div class="modal-content">
+      <span class="close" onclick="closeModal()">&times;</span>
+      <h2>Bindu</h2>
+      <form id="signupForm">
+        <div class="form-group">
+          <label for="signupPhone">Sa numéro téléphone</label>
+          <input type="tel" id="signupPhone" name="phone" required>
+        </div>
+        <div class="form-group">
+          <label for="signupPassword">Sa baatu jumtukaay</label>
+          <input type="password" id="signupPassword" name="password" required>
+        </div>
+        <div class="form-group">
+          <label for="signupConfirmPassword">Waxaat sa baatu jumtukaay</label>
+          <input type="password" id="signupConfirmPassword" name="confirmPassword" required>
+        </div>
+        <button type="submit" class="btn">Bindu</button>
+      </form>
+      <div class="auth-buttons">
+        <div class="auth-button" onclick="signupWithGoogle()">
+          <div class="auth-icon">G</div>
+          <div>Google</div>
+        </div>
+        <div class="auth-button" onclick="signupWithApple()">
+          <div class="auth-icon">🍎</div>
+          <div>Apple</div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <script>
+    let balance = 150000;
+    let transactions = [
+      { type: 'expense', description: 'Jënd ci bitik bu mag', date: '15 juin 2023', amount: -15000, icon: '🛒' },
+      { type: 'income', description: 'Pey', date: '1 juin 2023', amount: 250000, icon: '💼' },
+      { type: 'expense', description: 'Loyer', date: '31 mai 2023', amount: -100000, icon: '🏠' }
+    ];
+    
+    let isLoggedIn = false;
+
+    function checkAuth() {
+      isLoggedIn = localStorage.getItem('isLoggedIn') === 'true';
+      if (isLoggedIn) {
+        document.getElementById('authContainer').classList.add('hidden');
+        document.getElementById('mainContent').classList.remove('hidden');
+        document.getElementById('userInfo').classList.remove('hidden');
+        updateBalance();
+        renderTransactions();
+      } else {
+        document.getElementById('authContainer').classList.remove('hidden');
+        document.getElementById('mainContent').classList.add('hidden');
+        document.getElementById('userInfo').classList.add('hidden');
+      }
+    }
+
+    function showLoginModal() {
+      document.getElementById('loginModal').style.display = 'block';
+    }
+
+    function showSignupModal() {
+      document.getElementById('signupModal').style.display = 'block';
+    }
+
+    function closeModal() {
+      document.getElementById('
